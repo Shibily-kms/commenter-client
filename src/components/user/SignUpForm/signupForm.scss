@@ -1,0 +1,18 @@
+@import '../../../assets/css/user-root.scss';
+
+
+.singlelabel {
+    font-size: 12px;
+}
+
+.error-div {
+    background-color: $redColor !important;
+    color: $primaryColor !important;
+    font-size: 12px;
+}
+
+.show-icon {
+    position: absolute;
+    right: 25px;
+    top: 12px;
+}
