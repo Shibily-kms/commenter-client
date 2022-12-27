@@ -47,7 +47,7 @@ const userAuthSlice = createSlice({
         reset: (state) => {
             state.isError = false
             state.isSuccess = false
-            state.isLoading = false
+            state.isLoading = false 
             state.message = ''
         },
         logOut: (state) => {
