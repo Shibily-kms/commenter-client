@@ -11,7 +11,7 @@ function ColumnThree() {
   useEffect(() => {
 
     setLoading(true)
-    axios.get('/friends-suggestions/10', { withCredentials: true }).then((result) => {
+    axios.get('/friends-suggestions/10').then((result) => {
       setLoading(false)
       setSuggest(result.data.users)
     }).catch((error) => {

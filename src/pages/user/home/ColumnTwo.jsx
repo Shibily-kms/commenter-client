@@ -18,7 +18,7 @@ function ColumnTwo() {
         setLoading(true)
         let postId = searchParams.get('postId')
         if (postId) {
-            axios.get('/post/' + postId, { withCredentials: true }).then((result) => {
+            axios.get('/post/' + postId).then((result) => {
                 setLoading(false)
                 if (result.data.post?.postId) {
                     setPosts([result.data.post])
@@ -30,7 +30,7 @@ function ColumnTwo() {
                 setPosts([])
             })
         } else {
-            axios.get('/post', { withCredentials: true }).then((result) => {
+            axios.get('/post').then((result) => {
                 setLoading(false)
                 setPosts(result.data.posts)
             })

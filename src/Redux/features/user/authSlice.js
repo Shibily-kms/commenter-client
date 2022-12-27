@@ -22,7 +22,7 @@ export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkA
 // User Get Data
 export const getUserData = createAsyncThunk('user/get-data', async (thunkAPI) => {
     try {
-        return await axios.get('/get-user', { withCredentials: true });
+        return await axios.get('/get-user');
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
