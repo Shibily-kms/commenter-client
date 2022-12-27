@@ -51,9 +51,9 @@ function SignInForm() {
             dispatch(userLoagIN(form))
 
         } else {
-            axios.post('/verify-username-or-email', { name: form.userName }).then((response) => {
+            axios.post('/verify-username-or-email', { name: form.userName },{withCredentials:true}).then((response) => {
                 if (response.data.success) {
-                    axios.post('/send-otp', { number: response.data.mobile }).then((result) => {
+                    axios.post('/send-otp', { number: response.data.mobile },{withCredentials:true}).then((result) => {
                         if (result.data.success) {
                             navigate('/otp', {
                                 state: {
