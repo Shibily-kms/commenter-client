@@ -19,13 +19,15 @@ function ColumnTwo() {
         let postId = searchParams.get('postId')
         if (postId) {
             axios.get('/post/' + postId).then((result) => {
+                console.log(result,'home success');
                 setLoading(false)
                 if (result.data.post?.postId) {
                     setPosts([result.data.post])
                 } else {
                     setPosts([])
                 }
-            }).catch(() => {
+            }).catch((error) => {
+                console.log(error,'home');
                 setLoading(false)
                 setPosts([])
             })
