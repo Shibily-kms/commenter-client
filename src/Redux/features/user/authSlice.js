@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkAPI) => {
     try {
         console.log('1');
-        return await axios.post('/sign-in', formData, { withCredentials: true })
+        return await axios.post('/sign-in', formData)
     } catch (error) {
         console.log(error,'2');
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
