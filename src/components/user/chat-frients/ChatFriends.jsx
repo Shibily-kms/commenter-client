@@ -6,7 +6,7 @@ function ChatFriends({ data, current }) {
     const [user, setUser] = useState({})
     useEffect(() => {
         const friendId = data.members.find((m) => m !== current.urId)
-        axios.get('/users/' + friendId, { withCredentials: true }).then((res) => {
+        axios.get('/users/' + friendId).then((res) => {
             setUser(res.data.user)
         })
 

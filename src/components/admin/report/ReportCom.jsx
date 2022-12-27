@@ -15,7 +15,7 @@ function ReportCom() {
     const blockPost = (postId, urId, count, reason) => {
         const ask = window.confirm('Are you block this post ?')
         if (ask) {
-            axios.post('/admin/block-post', { postId, urId, count, reason }, { withCredentials: true }).then(() => {
+            axios.post('/admin/block-post', { postId, urId, count, reason }).then(() => {
                 toast.success('This post Blocked')
                 setReports((reports) => reports.filter((value) => value.postId !== postId))
             })
@@ -24,7 +24,7 @@ function ReportCom() {
     const handleCancel = (postId) => {
         const ask = window.confirm('Are you cancel this report ?')
         if (ask) {
-            axios.post('/admin/cancel-report-post', { postId }, { withCredentials: true }).then(() => {
+            axios.post('/admin/cancel-report-post', { postId }).then(() => {
                 toast.success('This report cancelled')
                 setReports((reports) => reports.filter((value) => value.postId !== postId))
             })
@@ -33,7 +33,7 @@ function ReportCom() {
 
     useEffect(() => {
         setLoading(true)
-        axios.get('/admin/reports', { withCredentials: true }).then((result) => {
+        axios.get('/admin/reports').then((result) => {
             setReports(result.data.reports)
             setLoading(false)
         })

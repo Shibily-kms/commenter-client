@@ -30,7 +30,7 @@ function Header() {
     if (!cookies.commenter) {
       navigate('/sign-in')
     }
-    axios.get('/notifications/new-count', { withCredentials: true }).then((result) => {
+    axios.get('/notifications/new-count').then((result) => {
       setCount(result.data.count)
     })
   }, [])
@@ -44,7 +44,7 @@ function Header() {
   }
 
   const handleSearch = () => {
-    axios.get('/search/user/' + search, { withCredentials: true }).then((result) => {
+    axios.get('/search/user/' + search).then((result) => {
       setSearchResult(result.data.result)
       setShow(true)
     })

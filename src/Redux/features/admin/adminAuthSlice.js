@@ -14,7 +14,7 @@ const initialState = {
 export const loginAdmin = createAsyncThunk('admin/login', async (formData, thunkAPI) => {
    
     try {
-        return await axios.post('/admin/sign-in', formData, { withCredentials: true })
+        return await axios.post('/admin/sign-in', formData )
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
        
@@ -26,7 +26,7 @@ export const getAdminData = createAsyncThunk('admin/get-data', async (thunkAPI) 
    
     try {
        
-        return await axios.get('/admin/get-admin', { withCredentials: true });
+        return await axios.get('/admin/get-admin' );
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
       

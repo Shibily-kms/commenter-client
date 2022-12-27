@@ -41,14 +41,14 @@ function MessageLayout() {
 
     useEffect(() => {
         setLoading(true)
-        axios.get('/conversation/' + user?.urId, { withCredentials: true }).then((res) => {
+        axios.get('/conversation/' + user?.urId).then((res) => {
             setLoading(false)
             setConversation(res.data.conversation)
         })
     }, [user])
 
     useEffect(() => {
-        axios.get('/message/' + currentChat?.conId, { withCredentials: true }).then((res) => {
+        axios.get('/message/' + currentChat?.conId).then((res) => {
             setMessages(res.data.messages)
         })
     }, [currentChat])

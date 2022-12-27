@@ -12,7 +12,7 @@ const initialState = {
 // Thunk Actions
 export const getUserList = createAsyncThunk('admin/get-user-list', async (thunkAPI) => {
     try {
-        return await axios.get('/admin/user-list', { withCredentials: true })
+        return await axios.get('/admin/user-list' )
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -21,7 +21,7 @@ export const getUserList = createAsyncThunk('admin/get-user-list', async (thunkA
 
 export const userBlockOrUnblock = createAsyncThunk('admn/userblock-unblock', async (usrId, thunkAPI) => {
     try {
-        return await axios.get('/admin/user-block-or-unblock/' + usrId, { withCredentials: true })
+        return await axios.get('/admin/user-block-or-unblock/' + usrId )
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)

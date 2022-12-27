@@ -19,7 +19,7 @@ function CoulmnTwo() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get('/save-post', { withCredentials: true }).then((data) => {
+    axios.get('/save-post' ).then((data) => {
       setLoading(false)
       setSavePost(data.data.posts)
     })

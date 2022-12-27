@@ -59,10 +59,10 @@ function Post(props) {
             })
             setPostLike(false)
         }
-        axios.put('/like', { urId: user.urId, postId: post.postId, posterId: post.urId, like: likeStatus ? true : false }, { withCredentials: true })
+        axios.put('/like', { urId: user.urId, postId: post.postId, posterId: post.urId, like: likeStatus ? true : false })
     }
     const handleSave = () => {
-        axios.put('/save-post', { urId: user?.urId, postId: post?.postId }, { withCredentials: true }).then((result) => {
+        axios.put('/save-post', { urId: user?.urId, postId: post?.postId }).then((result) => {
             if (result) {
 
                 dispatch(addSavePost({ postId: post.postId }))
@@ -73,7 +73,7 @@ function Post(props) {
         })
     }
     const handleRemoveSave = () => {
-        axios.delete('/save-post/' + user.urId + '/' + post.postId, { withCredentials: true }).then((result) => {
+        axios.delete('/save-post/' + user.urId + '/' + post.postId ).then((result) => {
             setRemove(true)
             toast.success('Post removed form save list')
             dispatch(removeSavePost({ postId: post.postId }))
@@ -85,7 +85,7 @@ function Post(props) {
         const confirmBox = window.confirm('Are you delete this post')
         if (confirmBox) {
             setShow(false)
-            axios.delete('/delete-post/' + post.urId + '/' + post.postId, { withCredentials: true }).then((result) => {
+            axios.delete('/delete-post/' + post.urId + '/' + post.postId ).then((result) => {
                 if (result) {
                     toast.success('Post removed')
                     setRemove(true)

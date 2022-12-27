@@ -36,7 +36,7 @@ function Chatbox({ current, messages, setCurrent }) {
                     receiverId: receiverId,
                     text: newMessage
                 })
-                axios.post('/message', message, { withCredentials: true }).then((res) => {
+                axios.post('/message', message).then((res) => {
                     setAllMessage([...allMessage, res.data.savedMessage])
                     setNewMessage('')
                 })
@@ -71,7 +71,7 @@ function Chatbox({ current, messages, setCurrent }) {
 
     useEffect(() => {
         const friendId = current.members.find((m) => m !== user.urId)
-        axios.get('/users/' + friendId, { withCredentials: true }).then((res) => {
+        axios.get('/users/' + friendId).then((res) => {
 
             setNow(res.data.user)
         })

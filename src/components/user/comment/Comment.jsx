@@ -26,7 +26,7 @@ function Comment(props) {
     const submitComment = (e) => {
         if (e === undefined || e.charCode == 13) {
             if (input != '') {
-                axios.post('/comment', { urId: user.urId, userName: user.userName, postId: props.postId, text: input, profile: user?.profile }, { withCredentials: true }).then((result) => {
+                axios.post('/comment', { urId: user.urId, userName: user.userName, postId: props.postId, text: input, profile: user?.profile }).then((result) => {
                     setInput('')
                     setComment([...comment, result.data.comment])
 
@@ -38,7 +38,7 @@ function Comment(props) {
     const removeComment = (comId) => {
         const confirmBox = window.confirm('Are you delete this comment')
         if (confirmBox) {
-            axios.delete('/comment/' + comId + '/' + props.postId, { withCredentials: true }).then((response) => {
+            axios.delete('/comment/' + comId + '/' + props.postId).then((response) => {
                 if (response) {
                     toast.success('comment removed')
 

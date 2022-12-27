@@ -34,7 +34,7 @@ function CreatePost() {
     }
 
     const doPost = (formData) => {
-        axios.post('/post', formData, { withCredentials: true }).then((result) => {
+        axios.post('/post', formData).then((result) => {
             setPost([result.data.post, ...post])
             setLoading(false)
             setShow(false)

@@ -21,7 +21,7 @@ function Notifi(props) {
     } else {
       navigate(notifi.path)
     }
-    axios.post('/notifications/view', { urId: user.urId, msgId: notifi.msgId }, { withCredentials: true }).then(() => {
+    axios.post('/notifications/view', { urId: user.urId, msgId: notifi.msgId }).then(() => {
       setNotifi({
         ...notifi,
         status: true

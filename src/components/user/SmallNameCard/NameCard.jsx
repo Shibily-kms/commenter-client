@@ -15,7 +15,7 @@ function NameCard(props) {
 
     const handleFollow = () => {
 
-        axios.post('/follow', { followId: props?.data?.urId }, { withCredentials: true }).then((result) => {
+        axios.post('/follow', { followId: props?.data?.urId } ).then((result) => {
             setFollowing(true)
             dispatch(follow({ followId: props?.data?.urId }))
         }).catch((error) => {
@@ -23,7 +23,7 @@ function NameCard(props) {
         })
     }
     const handleUnFollow = () => {
-        axios.post('/unfollow', { followId: props?.data?.urId }, { withCredentials: true }).then((result) => {
+        axios.post('/unfollow', { followId: props?.data?.urId } ).then((result) => {
             setFollowing(false)
             dispatch(unfollow({ followId: props?.data?.urId }))
         }).catch((error) => {

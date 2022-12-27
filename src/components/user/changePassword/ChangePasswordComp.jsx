@@ -37,7 +37,7 @@ function ChangePasswordComp() {
     setLoading(true)
     let validation = NewPasswordValidation(form)
     if (validation.success) {
-      axios.put('/change-password', form, { withCredentials: true }).then(() => {
+      axios.put('/change-password', form).then(() => {
         setForm({ ...form, current: null, password: null, confirm: null })
         toast.success('Your password changed')
         setLoading(false)

@@ -23,11 +23,11 @@ function ColumnTwo() {
 
   useEffect(() => {
     if (action) {
-      axios.get('/followers', { withCredentials: true }).then((result) => {
+      axios.get('/followers' ).then((result) => {
         setResult(result.data.followers)
       })
     } else {
-      axios.get('/following', { withCredentials: true }).then((result) => {
+      axios.get('/following' ).then((result) => {
         setResult(result.data.following)
       })
     }

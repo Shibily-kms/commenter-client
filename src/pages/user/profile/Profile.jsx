@@ -22,7 +22,7 @@ function Profile() {
     const [searchParams] = useSearchParams()
 
     useEffect(() => {
-        axios.get(location.pathname, { withCredentials: true }).then((response) => {
+        axios.get(location.pathname ).then((response) => {
             setProfile(response.data.profile)
             let postId = searchParams.get('postId')
             if (postId) {

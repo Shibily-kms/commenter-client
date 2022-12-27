@@ -22,7 +22,7 @@ function Report(props) {
             postedId: props.data.urId
         }
         if (reason) {
-            axios.post('/report-post', obj, { withCredentials: true }).then(() => {
+            axios.post('/report-post', obj ).then(() => {
                 toast.success('Your report Submitted')
                 props.data.setRemove(true)
             })

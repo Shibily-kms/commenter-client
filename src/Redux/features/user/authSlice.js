@@ -32,7 +32,7 @@ export const getUserData = createAsyncThunk('user/get-data', async (thunkAPI) =>
 // Edit Profile
 export const editProfile = createAsyncThunk('user/edit-profile', async (form, thunkAPI) => {
     try {
-        return await axios.put('/edit-profile', form, { withCredentials: true })
+        return await axios.put('/edit-profile', form )
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -72,7 +72,7 @@ const userAuthSlice = createSlice({
             state.isSuccess = false
         },
         [userLoagIN.fulfilled]: (state, action) => {
-
+            console.log(action,'success');
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload.data.user
