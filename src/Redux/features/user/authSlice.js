@@ -11,8 +11,10 @@ const INITIAL_STATE = {
 // User LogIn
 export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkAPI) => {
     try {
+        console.log('1');
         return await axios.post('/sign-in', formData, { withCredentials: true })
     } catch (error) {
+        console.log(error,'2');
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
@@ -77,7 +79,7 @@ const userAuthSlice = createSlice({
 
         },
         [userLoagIN.rejected]: (state, action) => {
-
+            console.log(action,'action');
             state.isLoading = false
             state.isError = true
             state.message = action.payload
