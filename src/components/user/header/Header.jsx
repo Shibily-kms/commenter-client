@@ -78,7 +78,7 @@ function Header() {
           {show ?
             <div className="shadow" onClick={handleShadow}>   </div> : ''
           }
-          <div className="searchDiv">
+          <div className="searchDiv d-none d-md-block">
             <div className="search">
               <input className='d-none d-md-block' onChange={handleInput} type="text" required placeholder='Search commenter' />
               <div className="icon" onClick={handleSearch}>
