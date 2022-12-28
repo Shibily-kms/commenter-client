@@ -27,12 +27,12 @@ function Header() {
   const [searchResult, setSearchResult] = useState([])
 
   useEffect(() => {
-    if (!cookies.commenter) {
-      navigate('/sign-in')
-    }
-    axios.get('/notifications/new-count').then((result) => {
-      setCount(result.data.count)
-    })
+    // if (!cookies.commenter) {
+    //   navigate('/sign-in')
+    // }
+    // axios.get('/notifications/new-count').then((result) => {
+    //   setCount(result.data.count)
+    // })
   }, [])
 
   const handleShadow = () => {

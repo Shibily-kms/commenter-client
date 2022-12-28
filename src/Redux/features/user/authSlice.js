@@ -12,9 +12,9 @@ const INITIAL_STATE = {
 export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkAPI) => {
     try {
         console.log('1');
-        return await axios.post('/sign-in', formData)
+        return await axios.post('/sign-in', formData, { withCredentials: true })
     } catch (error) {
-        console.log(error,'2');
+        console.log(error, '2');
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
@@ -32,7 +32,7 @@ export const getUserData = createAsyncThunk('user/get-data', async (thunkAPI) =>
 // Edit Profile
 export const editProfile = createAsyncThunk('user/edit-profile', async (form, thunkAPI) => {
     try {
-        return await axios.put('/edit-profile', form )
+        return await axios.put('/edit-profile', form)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -47,7 +47,7 @@ const userAuthSlice = createSlice({
         reset: (state) => {
             state.isError = false
             state.isSuccess = false
-            state.isLoading = false 
+            state.isLoading = false
             state.message = ''
         },
         logOut: (state) => {
@@ -57,13 +57,13 @@ const userAuthSlice = createSlice({
             state?.user?.savePost.push(action.payload.postId)
         },
         removeSavePost: (state, action) => {
-            state.user.savePost = state.user.savePost.filter((value) => value != action.payload.postId)
+            state.user.savePost = state.user.savePost.filter((value) => value !== action.payload.postId)
         },
         follow: (state, action) => {
             state?.user?.following.push(action.payload.followId)
         },
         unfollow: (state, action) => {
-            state.user.following = state.user.following.filter((value) => value != action.payload.followId)
+            state.user.following = state.user.following.filter((value) => value !== action.payload.followId)
         }
     },
     extraReducers: {
@@ -72,14 +72,14 @@ const userAuthSlice = createSlice({
             state.isSuccess = false
         },
         [userLoagIN.fulfilled]: (state, action) => {
-            console.log(action,'success');
+            console.log(action, 'success');
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload.data.user
 
         },
         [userLoagIN.rejected]: (state, action) => {
-            console.log(action,'action');
+            console.log(action, 'action');
             state.isLoading = false
             state.isError = true
             state.message = action.payload

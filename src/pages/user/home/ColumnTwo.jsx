@@ -32,10 +32,16 @@ function ColumnTwo() {
                 setPosts([])
             })
         } else {
-            axios.get('/post',{withCredentials:true}).then((result) => {
-                setLoading(false)
-                setPosts(result.data.posts)
-            })
+            console.log('start post');
+            // axios.get('/post').then((result) => {
+            //     console.log(result,'post');
+            //     setLoading(false)
+            //     setPosts(result.data.posts)
+            // }).catch((error)=>{
+            //     setLoading(false)
+            //     setPosts([])
+            //     console.log(error,'post error');
+            // })
         }
 
     }, [])
