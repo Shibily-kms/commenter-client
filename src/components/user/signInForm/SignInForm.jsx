@@ -73,7 +73,7 @@ function SignInForm() {
         }
     }
     useEffect(() => {
-        if (cookies.commenter || user) {
+        if (localStorage.getItem('token') || user) {
             navigate('/')
         }
     }, [isError, isSuccess, user, message, dispatch])

@@ -20,6 +20,7 @@ function CreatePost() {
     const [ready, setReady] = useState(false)
     const inputRef = useRef(null);
     const [post, setPost] = useState([])
+    const token = localStorage.getItem('token')
 
     const handelText = (e) => {
         setForm({
@@ -34,7 +35,11 @@ function CreatePost() {
     }
 
     const doPost = (formData) => {
-        axios.post('/post', formData).then((result) => {
+        axios.post('/post', formData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((result) => {
             setPost([result.data.post, ...post])
             setLoading(false)
             setShow(false)

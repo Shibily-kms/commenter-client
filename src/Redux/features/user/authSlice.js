@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../../config/axios'
+const token = localStorage.getItem('token')
 const INITIAL_STATE = {
     user: null,
     isError: false,
@@ -7,6 +8,7 @@ const INITIAL_STATE = {
     isLoading: false,
     message: ''
 }
+
 
 // User LogIn
 export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkAPI) => {
@@ -22,7 +24,11 @@ export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkA
 // User Get Data
 export const getUserData = createAsyncThunk('user/get-data', async (thunkAPI) => {
     try {
-        return await axios.get('/get-user');
+        return await axios.get('/get-user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -32,7 +38,11 @@ export const getUserData = createAsyncThunk('user/get-data', async (thunkAPI) =>
 // Edit Profile
 export const editProfile = createAsyncThunk('user/edit-profile', async (form, thunkAPI) => {
     try {
-        return await axios.put('/edit-profile', form)
+        return await axios.put('/edit-profile', form, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)

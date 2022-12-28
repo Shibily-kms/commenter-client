@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { IoTrashSharp } from "@react-icons/all-files/io5/IoTrashSharp";
 import { MdSend } from "@react-icons/all-files/md/MdSend";
 import { useSelector } from 'react-redux';
+const token = localStorage.getItem('token')
 
 
 function Comment(props) {
@@ -26,7 +27,12 @@ function Comment(props) {
     const submitComment = (e) => {
         if (e === undefined || e.charCode == 13) {
             if (input != '') {
-                axios.post('/comment', { urId: user.urId, userName: user.userName, postId: props.postId, text: input, profile: user?.profile }).then((result) => {
+                axios.post('/comment', { urId: user.urId, userName: user.userName, postId: props.postId, text: input, profile: user?.profile },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then((result) => {
                     setInput('')
                     setComment([...comment, result.data.comment])
 
@@ -38,7 +44,11 @@ function Comment(props) {
     const removeComment = (comId) => {
         const confirmBox = window.confirm('Are you delete this comment')
         if (confirmBox) {
-            axios.delete('/comment/' + comId + '/' + props.postId).then((response) => {
+            axios.delete('/comment/' + comId + '/' + props.postId, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
                 if (response) {
                     toast.success('comment removed')
 

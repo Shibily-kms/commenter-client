@@ -12,10 +12,15 @@ function NameCard(props) {
     const [following, setFollowing] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const token = localStorage.getItem('token')
 
     const handleFollow = () => {
 
-        axios.post('/follow', { followId: props?.data?.urId } ).then((result) => {
+        axios.post('/follow', { followId: props?.data?.urId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        } ).then((result) => {
             setFollowing(true)
             dispatch(follow({ followId: props?.data?.urId }))
         }).catch((error) => {
@@ -23,7 +28,11 @@ function NameCard(props) {
         })
     }
     const handleUnFollow = () => {
-        axios.post('/unfollow', { followId: props?.data?.urId } ).then((result) => {
+        axios.post('/unfollow', { followId: props?.data?.urId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        } ).then((result) => {
             setFollowing(false)
             dispatch(unfollow({ followId: props?.data?.urId }))
         }).catch((error) => {

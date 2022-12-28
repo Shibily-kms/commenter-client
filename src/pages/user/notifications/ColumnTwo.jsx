@@ -8,8 +8,15 @@ import axios from '../../../config/axios'
 function ColumnTwo() {
     const { user } = useSelector((state) => state.userAuth)
     const [notification, setNotification] = useState(null)
+    const token = localStorage.getItem('token')
+
+
     useEffect(() => {
-        axios.get('/notifications' ).then((result) => {
+        axios.get('/notifications', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((result) => {
             setNotification(result.data.notifications)
         }).catch((error) => {
         })

@@ -10,6 +10,7 @@ function ColumnTwo() {
   const [active, setActive] = useState('section-one')
   const [result, setResult] = useState([])
   const [action, setAction] = useState(false)
+  const token = localStorage.getItem('token')
 
   const handleShow = (value) => {
     if (value) {
@@ -23,11 +24,19 @@ function ColumnTwo() {
 
   useEffect(() => {
     if (action) {
-      axios.get('/followers' ).then((result) => {
+      axios.get('/followers', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    } ).then((result) => {
         setResult(result.data.followers)
       })
     } else {
-      axios.get('/following' ).then((result) => {
+      axios.get('/following', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    } ).then((result) => {
         setResult(result.data.following)
       })
     }

@@ -38,6 +38,7 @@ function Post(props) {
     const [remove, setRemove] = useState(false)
     const [commentInput, setCommentInput] = useState(false)
     const [report, setReport] = useState(false)
+    const token = localStorage.getItem('token')
 
     const handleCommentClick = () => {
         setCommentInput(true)
@@ -59,10 +60,18 @@ function Post(props) {
             })
             setPostLike(false)
         }
-        axios.put('/like', { urId: user.urId, postId: post.postId, posterId: post.urId, like: likeStatus ? true : false })
+        axios.put('/like', { urId: user.urId, postId: post.postId, posterId: post.urId, like: likeStatus ? true : false }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     }
     const handleSave = () => {
-        axios.put('/save-post', { urId: user?.urId, postId: post?.postId }).then((result) => {
+        axios.put('/save-post', { urId: user?.urId, postId: post?.postId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((result) => {
             if (result) {
 
                 dispatch(addSavePost({ postId: post.postId }))
@@ -73,7 +82,11 @@ function Post(props) {
         })
     }
     const handleRemoveSave = () => {
-        axios.delete('/save-post/' + user.urId + '/' + post.postId ).then((result) => {
+        axios.delete('/save-post/' + user.urId + '/' + post.postId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        } ).then((result) => {
             setRemove(true)
             toast.success('Post removed form save list')
             dispatch(removeSavePost({ postId: post.postId }))
@@ -85,7 +98,11 @@ function Post(props) {
         const confirmBox = window.confirm('Are you delete this post')
         if (confirmBox) {
             setShow(false)
-            axios.delete('/delete-post/' + post.urId + '/' + post.postId ).then((result) => {
+            axios.delete('/delete-post/' + post.urId + '/' + post.postId, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            } ).then((result) => {
                 if (result) {
                     toast.success('Post removed')
                     setRemove(true)

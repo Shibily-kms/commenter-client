@@ -9,9 +9,14 @@ import { useNavigate } from 'react-router-dom'
 
 function ProfileTop(props) {
     const navigate = useNavigate()
+    const token = localStorage.getItem('token')
     const { user } = useSelector((state) => state.userAuth)
     const handleMessage = () => {
-        axios.post('/conversation', { senderId: user.urId, receiverId: props.profile.urId } ).then((result) => {
+        axios.post('/conversation', { senderId: user.urId, receiverId: props.profile.urId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        } ).then((result) => {
             navigate('/message', { state: { conversation: result.data } })
         })
     }

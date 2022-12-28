@@ -15,13 +15,20 @@ function Notifi(props) {
   const [notifi, setNotifi] = useState(null)
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.userAuth)
+  const token = localStorage.getItem('token')
+
   const handleNotifi = () => {
     if (notifi.type === 'like') {
       navigate('/' + user.userName + '?postId=' + notifi.path)
     } else {
       navigate(notifi.path)
     }
-    axios.post('/notifications/view', { urId: user.urId, msgId: notifi.msgId }).then(() => {
+    axios.post('/notifications/view', { urId: user.urId, msgId: notifi.msgId },
+    {
+      headers: {
+          Authorization: `Bearer ${token}`
+      }
+  }).then(() => {
       setNotifi({
         ...notifi,
         status: true

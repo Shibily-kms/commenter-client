@@ -18,7 +18,9 @@ function ChangePasswordComp() {
     current: null, password: null, confirm: null, urId: null
   })
   const [show, setShow] = useState('')
+  const token = localStorage.getItem('token')
 
+  
   const handleInput = (e) => {
     setError(null)
     setLoading(false)
@@ -37,7 +39,11 @@ function ChangePasswordComp() {
     setLoading(true)
     let validation = NewPasswordValidation(form)
     if (validation.success) {
-      axios.put('/change-password', form).then(() => {
+      axios.put('/change-password', form, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(() => {
         setForm({ ...form, current: null, password: null, confirm: null })
         toast.success('Your password changed')
         setLoading(false)

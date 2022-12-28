@@ -4,9 +4,14 @@ import './chatfrients.scss';
 import axios from '../../../config/axios'
 function ChatFriends({ data, current }) {
     const [user, setUser] = useState({})
+    const token = localStorage.getItem('token')
     useEffect(() => {
         const friendId = data.members.find((m) => m !== current.urId)
-        axios.get('/users/' + friendId).then((res) => {
+        axios.get('/users/' + friendId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
             setUser(res.data.user)
         })
 

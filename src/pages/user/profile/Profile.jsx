@@ -20,9 +20,14 @@ function Profile() {
     const [posts, setPosts] = useState([])
     const [error, setError] = useState(false)
     const [searchParams] = useSearchParams()
+    const token = localStorage.getItem('token')
 
     useEffect(() => {
-        axios.get(location.pathname ).then((response) => {
+        axios.get(location.pathname , {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
             setProfile(response.data.profile)
             let postId = searchParams.get('postId')
             if (postId) {

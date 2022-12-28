@@ -12,6 +12,7 @@ function Report(props) {
     const [show, setShow] = useState(true)
     const [reason, setReason] = useState(null)
     const { user } = useSelector((state) => state.userAuth)
+    const token = localStorage.getItem('token')
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +23,11 @@ function Report(props) {
             postedId: props.data.urId
         }
         if (reason) {
-            axios.post('/report-post', obj ).then(() => {
+            axios.post('/report-post', obj, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            } ).then(() => {
                 toast.success('Your report Submitted')
                 props.data.setRemove(true)
             })

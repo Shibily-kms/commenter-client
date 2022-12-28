@@ -15,11 +15,16 @@ function CoulmnTwo() {
   const [savePost, setSavePost] = useState([])
   const [loading, setLoading] = useState(false)
   const { user } = useSelector((state) => state.userAuth)
+  const token = localStorage.getItem('token')
 
 
   useEffect(() => {
     setLoading(true)
-    axios.get('/save-post' ).then((data) => {
+    axios.get('/save-post' , {
+      headers: {
+          Authorization: `Bearer ${token}`
+      }
+  }).then((data) => {
       setLoading(false)
       setSavePost(data.data.posts)
     })

@@ -19,7 +19,11 @@ function ColumnTwo() {
         setLoading(true)
         let postId = searchParams.get('postId')
         if (postId) {
-            axios.get('/post/' + postId).then((result) => {
+            axios.get('/post/' + postId, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((result) => {
                 console.log(result, 'home succes');
                 setLoading(false)
                 if (result.data.post?.postId) {

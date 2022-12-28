@@ -8,16 +8,21 @@ import Spinner from '../../../components/Spinner'
 function ColumnThree() {
   const [suggest, setSuggest] = useState([])
   const [loading, setLoading] = useState(false)
-  // useEffect(() => {
+  const token = localStorage.getItem('token')
+  useEffect(() => {
 
-  //   setLoading(true)
-  //   axios.get('/friends-suggestions/10').then((result) => {
-  //     setLoading(false)
-  //     setSuggest(result.data.users)
-  //   }).catch((error) => {
-  //     setLoading(false)
-  //   })
-  // }, [])
+    setLoading(true)
+    axios.get('/friends-suggestions/10', {
+      headers: {
+          Authorization: `Bearer ${token}`
+      }
+  }).then((result) => {
+      setLoading(false)
+      setSuggest(result.data.users)
+    }).catch((error) => {
+      setLoading(false)
+    })
+  }, [])
   return (
     <div>
       <div className="PeopleYouMayKnow">

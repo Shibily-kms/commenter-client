@@ -23,7 +23,7 @@ function User() {
   const dispatch = useDispatch();
   const { user, isError } = useSelector((state) => state.userAuth)
   useEffect(() => {
-    if (!user && cookies.commenter) {
+    if (!user && localStorage.getItem('token')) {
       dispatch(getUserData())
       dispatch(reset())
     }

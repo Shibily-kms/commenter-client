@@ -67,7 +67,7 @@ function SignUpForm() {
     }
 
     useEffect(() => {
-        if (cookies.commenter) {
+        if (localStorage.getItem('token')) {
             navigate('/')
         }
     }, [])

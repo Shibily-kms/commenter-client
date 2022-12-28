@@ -19,6 +19,7 @@ function Chatbox({ current, messages, setCurrent }) {
     const [allMessage, setAllMessage] = useState([])
     const [arrivalMessage, setArrivalMessage] = useState(null)
     const socket = useRef()
+    const token = localStorage.getItem('token')
 
 
     const handleSubmit = (e) => {
@@ -36,7 +37,11 @@ function Chatbox({ current, messages, setCurrent }) {
                     receiverId: receiverId,
                     text: newMessage
                 })
-                axios.post('/message', message).then((res) => {
+                axios.post('/message', message, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then((res) => {
                     setAllMessage([...allMessage, res.data.savedMessage])
                     setNewMessage('')
                 })
@@ -71,7 +76,11 @@ function Chatbox({ current, messages, setCurrent }) {
 
     useEffect(() => {
         const friendId = current.members.find((m) => m !== user.urId)
-        axios.get('/users/' + friendId).then((res) => {
+        axios.get('/users/' + friendId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
 
             setNow(res.data.user)
         })

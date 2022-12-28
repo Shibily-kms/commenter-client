@@ -25,14 +25,19 @@ function Header() {
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState([])
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
-    // if (!cookies.commenter) {
-    //   navigate('/sign-in')
-    // }
-    // axios.get('/notifications/new-count').then((result) => {
-    //   setCount(result.data.count)
-    // })
+    if (!token) {
+      navigate('/sign-in')
+    }
+    axios.get('/notifications/new-count', {
+      headers: {
+          Authorization: `Bearer ${token}`
+      }
+  }).then((result) => {
+      setCount(result.data.count)
+    })
   }, [])
 
   const handleShadow = () => {
@@ -44,7 +49,11 @@ function Header() {
   }
 
   const handleSearch = () => {
-    axios.get('/search/user/' + search).then((result) => {
+    axios.get('/search/user/' + search, {
+      headers: {
+          Authorization: `Bearer ${token}`
+      }
+  }).then((result) => {
       setSearchResult(result.data.result)
       setShow(true)
     })

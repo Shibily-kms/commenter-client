@@ -24,6 +24,7 @@ function MessageLayout() {
     const [currentChat, setCurrentChat] = useState(null)
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
+    const token = localStorage.getItem('token')
 
     const handleSidebar = () => {
         if (action) {
@@ -41,14 +42,22 @@ function MessageLayout() {
 
     useEffect(() => {
         setLoading(true)
-        axios.get('/conversation/' + user?.urId).then((res) => {
+        axios.get('/conversation/' + user?.urId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
             setLoading(false)
             setConversation(res.data.conversation)
         })
     }, [user])
 
     useEffect(() => {
-        axios.get('/message/' + currentChat?.conId).then((res) => {
+        axios.get('/message/' + currentChat?.conId, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
             setMessages(res.data.messages)
         })
     }, [currentChat])
