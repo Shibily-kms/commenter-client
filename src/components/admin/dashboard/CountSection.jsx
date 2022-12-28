@@ -5,9 +5,14 @@ import axios from '../../../config/axios'
 
 function CountSection() {
     const [userCount, setuserCount] = useState({})
+    const token = localStorage.getItem('adminToken')
     useEffect(() => {
         // Get Counts
-        axios.get('/admin/dashboard-count').then((result) => {
+        axios.get('/admin/dashboard-count',{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((result) => {
             setuserCount(result.data.MainArray[0])
         })
     }, [])

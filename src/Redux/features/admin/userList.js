@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../../config/axios'
+const token = localStorage.getItem('adminToken')
 
 const initialState = {
     users: null,
@@ -12,7 +13,11 @@ const initialState = {
 // Thunk Actions
 export const getUserList = createAsyncThunk('admin/get-user-list', async (thunkAPI) => {
     try {
-        return await axios.get('/admin/user-list' )
+        return await axios.get('/admin/user-list',{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        } )
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -21,7 +26,11 @@ export const getUserList = createAsyncThunk('admin/get-user-list', async (thunkA
 
 export const userBlockOrUnblock = createAsyncThunk('admn/userblock-unblock', async (usrId, thunkAPI) => {
     try {
-        return await axios.get('/admin/user-block-or-unblock/' + usrId )
+        return await axios.get('/admin/user-block-or-unblock/' + usrId,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)

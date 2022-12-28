@@ -16,7 +16,8 @@ function Sidebar() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const LogOut = () => {
-        removeCookie('commenterAdmin', { path: '/' })
+        localStorage.removeItem('adminToken')
+        // removeCookie('commenterAdmin', { path: '/' })
         dispatch(logOut())
         navigate('/admin/sign-in')
     }

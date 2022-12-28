@@ -16,7 +16,7 @@ function Admin() {
   const { admin } = useSelector((state) => state.adminAuth)
 
   useEffect(() => {
-    if (!admin && cookies.commenterAdmin) {
+    if (!admin && localStorage.getItem('adminToken')) {
       dispatch(getAdminData())
       dispatch(reset())
     }

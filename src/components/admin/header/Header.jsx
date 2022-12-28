@@ -18,7 +18,7 @@ function Header() {
   
 
   useEffect(()=>{
-    if (!cookies.commenterAdmin) {
+    if (!localStorage.getItem('adminToken')) {
       navigate('/admin/sign-in')
   }
   },[])

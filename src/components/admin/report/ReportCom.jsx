@@ -11,11 +11,17 @@ function ReportCom() {
    
     const [reports, setReports] = useState([])
     const [loading, setLoading] = useState(false)
+    const token = localStorage.getItem('adminToken')
 
     const blockPost = (postId, urId, count, reason) => {
         const ask = window.confirm('Are you block this post ?')
         if (ask) {
-            axios.post('/admin/block-post', { postId, urId, count, reason }).then(() => {
+            axios.post('/admin/block-post', { postId, urId, count, reason },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(() => {
                 toast.success('This post Blocked')
                 setReports((reports) => reports.filter((value) => value.postId !== postId))
             })
@@ -24,7 +30,11 @@ function ReportCom() {
     const handleCancel = (postId) => {
         const ask = window.confirm('Are you cancel this report ?')
         if (ask) {
-            axios.post('/admin/cancel-report-post', { postId }).then(() => {
+            axios.post('/admin/cancel-report-post', { postId },{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(() => {
                 toast.success('This report cancelled')
                 setReports((reports) => reports.filter((value) => value.postId !== postId))
             })
@@ -33,7 +43,11 @@ function ReportCom() {
 
     useEffect(() => {
         setLoading(true)
-        axios.get('/admin/reports').then((result) => {
+        axios.get('/admin/reports',{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((result) => {
             setReports(result.data.reports)
             setLoading(false)
         })

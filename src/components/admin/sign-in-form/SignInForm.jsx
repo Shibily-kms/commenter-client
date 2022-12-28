@@ -45,7 +45,7 @@ function SignInForm() {
     }
 
     useEffect(() => {
-        if (cookies.commenterAdmin) {
+        if (localStorage.getItem('adminToken')) {
             navigate('/admin/user-list')
         }
     }, [])

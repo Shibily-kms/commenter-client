@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from '../../../config/axios'
+const token = localStorage.getItem('adminToken')
 
 
 const initialState = {
@@ -26,7 +27,11 @@ export const getAdminData = createAsyncThunk('admin/get-data', async (thunkAPI) 
    
     try {
        
-        return await axios.get('/admin/get-admin' );
+        return await axios.get('/admin/get-admin' ,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
       
@@ -55,7 +60,7 @@ export const adminAuthSlice = createSlice({
             state.isLoading = true
         },
         [loginAdmin.fulfilled]: (state, action) => {
-           
+            localStorage.setItem('adminToken', action.payload.data.token);
             state.isLoading = false
             state.isSuccess = true
             state.admin = action.payload.data.admin
