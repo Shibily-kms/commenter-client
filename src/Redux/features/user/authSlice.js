@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 export const userLoagIN = createAsyncThunk('user/login', async (formData, thunkAPI) => {
     try {
         console.log('1');
-        return await axios.post('/sign-in', formData, { withCredentials: true })
+        return await axios.post('/sign-in', formData)
     } catch (error) {
         console.log(error, '2');
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
@@ -72,6 +72,8 @@ const userAuthSlice = createSlice({
             state.isSuccess = false
         },
         [userLoagIN.fulfilled]: (state, action) => {
+            console.log(action.payload.data.token,'token');
+            localStorage.setItem('token', action.payload.data.token);
             console.log(action, 'success');
             state.isLoading = false
             state.isSuccess = true
