@@ -8,16 +8,16 @@ import { GoReport } from "@react-icons/all-files/go/GoReport";
 import { NavLink,useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logOut } from '../../../Redux/features/admin/adminAuthSlice'
-import { useCookies } from "react-cookie";
+
 
 function Sidebar() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['commenterAdmin'])
+  
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const LogOut = () => {
         localStorage.removeItem('adminToken')
-        // removeCookie('commenterAdmin', { path: '/' })
+       
         dispatch(logOut())
         navigate('/admin/sign-in')
     }

@@ -8,7 +8,7 @@ import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
+
 import Logo from '../../../assets/icons/newLogo.png'
 import Profile from '../../../assets/icons/profile.jpg'
 import NameCard from '../../../components/user/SmallNameCard/NameCard'
@@ -20,7 +20,6 @@ function Header() {
   const navigate = useNavigate()
   const { action } = useSelector((state) => state.sidebarToggle)
   const { user } = useSelector((state) => state.userAuth)
-  const [cookies, setCookie] = useCookies(['commenter']);
   const [count, setCount] = useState(0)
   const [show, setShow] = useState(false)
   const [search, setSearch] = useState('')

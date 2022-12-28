@@ -5,11 +5,11 @@ import { signUpFormFunction } from '../../../assets/js/user/form-validation'
 import { useNavigate } from 'react-router-dom'
 import { FaRegEye } from "@react-icons/all-files/fa/FaRegEye";
 import { FaRegEyeSlash } from "@react-icons/all-files/fa/FaRegEyeSlash";
-import { useCookies } from 'react-cookie'
+
 
 function SignUpForm() {
     const navigate = useNavigate()
-    const [cookies, setCookie] = useCookies(['commenter']);
+  
     // Get Form Input data
     const [form, setForm] = useState({
         firstName: null, lastName: null, userName: null, emailId: null, dob: null, password: null, cpassword: null, mobile: null

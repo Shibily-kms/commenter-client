@@ -7,12 +7,12 @@ import Report from '../pages/admin/Report'
 import { useEffect } from 'react'
 import { useSelector,  useDispatch } from 'react-redux'
 import { getAdminData, reset } from '../Redux/features/admin/adminAuthSlice'
-import { useCookies } from 'react-cookie';
+
 
 
 function Admin() {
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(['commenterAdmin']);
+  
   const { admin } = useSelector((state) => state.adminAuth)
 
   useEffect(() => {

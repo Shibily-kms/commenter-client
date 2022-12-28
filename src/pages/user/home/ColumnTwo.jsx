@@ -24,7 +24,7 @@ function ColumnTwo() {
                     Authorization: `Bearer ${token}`
                 }
             }).then((result) => {
-                console.log(result, 'home succes');
+              
                 setLoading(false)
                 if (result.data.post?.postId) {
                     setPosts([result.data.post])
@@ -32,24 +32,24 @@ function ColumnTwo() {
                     setPosts([])
                 }
             }).catch((error) => {
-                console.log(error, 'home');
+               
                 setLoading(false)
                 setPosts([])
             })
         } else {
-            console.log('start post');
+          
             axios.get('/post', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((result) => {
-                console.log(result, 'post');
+               
                 setLoading(false)
                 setPosts(result.data.posts)
             }).catch((error) => {
                 setLoading(false)
                 setPosts([])
-                console.log(error, 'post error');
+               
             })
         }
 

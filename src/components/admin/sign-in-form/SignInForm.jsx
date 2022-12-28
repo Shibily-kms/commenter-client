@@ -7,7 +7,7 @@ import { RiLoader2Line } from '@react-icons/all-files/ri/RiLoader2Line'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginAdmin,reset } from '../../../Redux/features/admin/adminAuthSlice'
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+
 
 
 
@@ -17,7 +17,7 @@ function SignInForm() {
     // States
     const [show, setShow] = useState('')
     const [form, setForm] = useState({ emailId: null, password: null })
-    const [cookies, setCookie] = useCookies(['commenterAdmin']);
+  
     const { isLoading,  isError, message } = useSelector((state) => state.adminAuth)
     const navigate = useNavigate();
     
@@ -45,6 +45,7 @@ function SignInForm() {
     }
 
     useEffect(() => {
+       
         if (localStorage.getItem('adminToken')) {
             navigate('/admin/user-list')
         }

@@ -11,16 +11,16 @@ import { RiLogoutCircleLine } from "@react-icons/all-files/ri/RiLogoutCircleLine
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logOut } from '../../../Redux/features/user/authSlice'
-import { useCookies } from "react-cookie";
+
 
 function Sidebar() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['commenterAdmin'])
+  
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const LogOut = () => {
         localStorage.removeItem('token')
-        // removeCookie('commenter', { path: '/' })
+     
         dispatch(logOut())
         navigate('/sign-in')
     }

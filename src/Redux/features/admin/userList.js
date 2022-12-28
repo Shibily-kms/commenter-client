@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from '../../../config/axios'
-const token = localStorage.getItem('adminToken')
+
 
 const initialState = {
     users: null,
@@ -13,22 +13,24 @@ const initialState = {
 // Thunk Actions
 export const getUserList = createAsyncThunk('admin/get-user-list', async (thunkAPI) => {
     try {
+        
         return await axios.get('/admin/user-list',{
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${localStorage.getItem('adminToken')}`
             }
         } )
     } catch (error) {
+       
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
 })
 
-export const userBlockOrUnblock = createAsyncThunk('admn/userblock-unblock', async (usrId, thunkAPI) => {
+export const userBlockOrUnblock = createAsyncThunk('admn/userblock-unblock', async (urId, thunkAPI) => {
     try {
-        return await axios.get('/admin/user-block-or-unblock/' + usrId,{
+        return await axios.get('/admin/user-block-or-unblock/' + urId,{
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${localStorage.getItem('adminToken')}`
             }
         })
     } catch (error) {
@@ -54,13 +56,16 @@ export const adminUserList = createSlice({
     },
     extraReducers: {
         [getUserList.pending]: (state) => {
+           
             state.isLoading = true
         },
         [getUserList.fulfilled]: (state, action) => {
+           
             state.isLoading = false
             state.users = action.payload.data.users
         },
         [getUserList.rejected]: (state, action) => {
+           
             state.isLoading = false
             state.isError = true
             state.message = action.payload.data.message

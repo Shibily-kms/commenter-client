@@ -18,6 +18,7 @@ function UserList() {
     }
   }
   useEffect(() => {
+  
     if (isError) {
       toast.error(message)
     }
@@ -27,6 +28,8 @@ function UserList() {
     dispatch(getUserList())
     dispatch(reset())
   }, [isError, isSuccess])
+
+
 
 
   const columns = [

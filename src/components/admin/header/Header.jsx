@@ -7,21 +7,21 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie';
+
 
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { action } = useSelector((state) => state.sidebarToggle)
   const { admin } = useSelector((state) => state.adminAuth)
-  const [cookies, setCookie] = useCookies(['commenterAdmin']);
-  
 
-  useEffect(()=>{
+
+
+  useEffect(() => {
     if (!localStorage.getItem('adminToken')) {
       navigate('/admin/sign-in')
-  }
-  },[])
+    }
+  }, [])
 
   const handleSidebar = () => {
     if (action) {

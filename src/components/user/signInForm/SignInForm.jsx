@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLoagIN, reset } from '../../../Redux/features/user/authSlice'
 import { RiLoader2Line } from '@react-icons/all-files/ri/RiLoader2Line'
-import { useCookies } from 'react-cookie'
+
 
 function SignInForm() {
     // States
@@ -15,7 +15,7 @@ function SignInForm() {
     const [page, setPage] = useState('SignIn')
     const [error, setError] = useState('')
     const [form, setForm] = useState({ userName: null, password: null })
-    const [cookies, setCookie] = useCookies(['commenter'])
+  
     const { user, isLoading, isSuccess, isError, message } = useSelector((state) => state.userAuth)
 
 
