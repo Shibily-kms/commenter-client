@@ -12,6 +12,7 @@ function ColumnTwo() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const [searchParams] = useSearchParams()
+    const token = localStorage.getItem('token')
 
 
     useEffect(() => {
@@ -19,7 +20,7 @@ function ColumnTwo() {
         let postId = searchParams.get('postId')
         if (postId) {
             axios.get('/post/' + postId).then((result) => {
-                console.log(result,'home succes');
+                console.log(result, 'home succes');
                 setLoading(false)
                 if (result.data.post?.postId) {
                     setPosts([result.data.post])
@@ -27,21 +28,25 @@ function ColumnTwo() {
                     setPosts([])
                 }
             }).catch((error) => {
-                console.log(error,'home');
+                console.log(error, 'home');
                 setLoading(false)
                 setPosts([])
             })
         } else {
             console.log('start post');
-            // axios.get('/post').then((result) => {
-            //     console.log(result,'post');
-            //     setLoading(false)
-            //     setPosts(result.data.posts)
-            // }).catch((error)=>{
-            //     setLoading(false)
-            //     setPosts([])
-            //     console.log(error,'post error');
-            // })
+            axios.get('/post', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((result) => {
+                console.log(result, 'post');
+                setLoading(false)
+                setPosts(result.data.posts)
+            }).catch((error) => {
+                setLoading(false)
+                setPosts([])
+                console.log(error, 'post error');
+            })
         }
 
     }, [])
