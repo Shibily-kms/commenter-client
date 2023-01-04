@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './chatbox.scss'
-import { io } from 'socket.io-client'
+import  io  from 'socket.io-client'
 import Profile from '../../../assets/icons/profile.jpg'
 import MessageContent from '../message/MessageContent';
 import axios from '../../../config/axios'
@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import { IoChevronBack } from "@react-icons/all-files/io5/IoChevronBack";
 import { IoMdSend } from "@react-icons/all-files/io/IoMdSend";
 
+const socket = io.connect("https://commenter.bristlesweb.club/");
+// const socket = io.connect("ws://localhost:8000");
 
 function Chatbox({ current, messages, setCurrent }) {
     const { user } = useSelector((state) => state.userAuth)
@@ -18,7 +20,6 @@ function Chatbox({ current, messages, setCurrent }) {
     const [newMessage, setNewMessage] = useState('')
     const [allMessage, setAllMessage] = useState([])
     const [arrivalMessage, setArrivalMessage] = useState(null)
-    const socket = useRef()
     const token = localStorage.getItem('token')
 
 
@@ -32,7 +33,7 @@ function Chatbox({ current, messages, setCurrent }) {
                     conId: current.conId
                 }
                 const receiverId = current.members.find((m) => m !== user.urId)
-                socket.current.emit('sendMessage', {
+                socket.emit('sendMessage', {
                     senderId: user.urId,
                     receiverId: receiverId,
                     text: newMessage
@@ -52,9 +53,8 @@ function Chatbox({ current, messages, setCurrent }) {
 
 
     useEffect(() => {
-        socket.current = io('https://commenter.bristlesweb.club')
-        // socket.current = io('ws://localhost:8000')
-        socket.current.on('getMessage', (data) => {
+       
+        socket.on('getMessage', (data) => {
             setArrivalMessage({
                 sender: data.senderId,
                 text: data.text,
@@ -69,8 +69,8 @@ function Chatbox({ current, messages, setCurrent }) {
     }, [arrivalMessage])
 
     useEffect(() => {
-        socket.current.emit('addUser', user.urId)
-        socket.current.on('getUsers', users => {
+        socket.emit('addUser', user.urId)
+        socket.on('getUsers', users => {
 
         })
     }, [user])
