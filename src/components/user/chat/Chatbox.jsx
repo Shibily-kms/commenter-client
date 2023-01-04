@@ -52,7 +52,7 @@ function Chatbox({ current, messages, setCurrent }) {
 
 
     useEffect(() => {
-        socket.current = io('ws://localhost:8900')
+        socket.current = io('https://socket.bristlesweb.club/')
         socket.current.on('getMessage', (data) => {
             setArrivalMessage({
                 sender: data.senderId,
