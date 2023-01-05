@@ -96,6 +96,11 @@ function CreatePost() {
         if (!fileObj) {
             return;
         }
+        if (event.target.files[0].type !== 'image/jpeg' && event.target.files[0].type !== 'image/jpg') {
+            toast.error('This file type not allowed')
+            return;
+        }
+
         setForm({
             ...form,
             urId: user.urId

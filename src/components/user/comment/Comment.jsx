@@ -125,7 +125,7 @@ function Comment(props) {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                {value.urId === user.urId || props.urId === user.urId ?
+                                                {value?.urId === user?.urId || props?.urId === user?.urId ?
                                                     <div className="delete" onClick={() => removeComment(value.comId)}>
                                                         <IoTrashSharp />
                                                     </div>
